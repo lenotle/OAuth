@@ -1,0 +1,21 @@
+server:
+  port: 9999
+
+  servlet:
+    context-path: /order
+
+spring:
+  application:
+    name: order-service
+
+logging:
+  level:
+    root: debug
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8080/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}

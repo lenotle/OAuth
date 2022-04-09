@@ -1,0 +1,41 @@
+server:
+  port: 3002
+
+spring:
+  application:
+    name: oauth2-cloud-auth-server
+  main:
+    allow-bean-definition-overriding: true
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 15000
+    jedis:
+      pool:
+        max-active: 600
+        max-idle: 300
+        max-wait: 15000
+        min-idle: 10
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///oauth-auth-server?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useUnicode=true&useSSL=false
+    username: root
+    password: 123456
+
+  jpa:
+    show-sql: true # 默认false，在日志里显示执行的sql语句
+    database: mysql
+    database-platform: mysql
+    hibernate.ddl-auto: update #指定为update，每次启动项目检测表结构有变化的时候会新增字段，表不存在时会新建，如果指定create，则每次启动项目都会清空数据并删除表，再新建
+    properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+    generate-ddl: false
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl #指定jpa的自动表生成策略，驼峰自动映射为下划线格式

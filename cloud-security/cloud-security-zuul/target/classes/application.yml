@@ -1,0 +1,34 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: zuul-service
+  main:
+    allow-bean-definition-overriding: true
+
+logging:
+  level:
+    root: info
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8080/eureka/
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+
+zuul:
+  strip-prefix: false
+  routes:
+    uaa-service: /uaa/**
+    order-service: /order/**
+
+ribbon:
+  eureka:
+    enabled: true
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+
